@@ -1,0 +1,26 @@
+name: Test add
+on:
+  pull_request:
+  push:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        python:
+          - '3.7'
+          - '3.8'
+    name: Python ${{ matrix.python }}
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run add.py
+        run: |
+          python add.py 1 2
+      - name: Run tests
+        run: |
+          python test.py
